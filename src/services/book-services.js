@@ -7,13 +7,18 @@ import {
   updateDoc,
   deleteDoc,
   doc,
+  serverTimestamp,
+  query,
+  orderBy,
+  where,
 } from 'firebase/firestore';
 
 const booksCollectionRef = collection(db, 'Books');
 
 class BookDataService {
   addBooks = (newBook) => {
-    return addDoc(booksCollectionRef, newBook);
+    const modifiedBook = { ...newBook, createdAt: serverTimestamp() };
+    return addDoc(booksCollectionRef, modifiedBook);
   };
   updateBook = (id, updatedBook) => {
     const bookDoc = doc(db, 'Books', id);
@@ -24,7 +29,8 @@ class BookDataService {
     return deleteDoc(bookDoc);
   };
   getAllBooks = () => {
-    return getDocs(booksCollectionRef);
+    const bookQuery = query(booksCollectionRef, orderBy('createdAt', 'desc'));
+    return getDocs(bookQuery);
   };
   getBook = (id) => {
     const bookDoc = doc(db, 'Books', id);

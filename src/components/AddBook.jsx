@@ -44,7 +44,6 @@ const AddBook = ({ id, setBookId }) => {
     setMsg('');
     try {
       const docSnap = await BookDataService.getBook(id);
-      console.log(docSnap.data());
       setTitle(docSnap.data().title);
       setAuthor(docSnap.data().author);
       setStatus(docSnap.data().status);

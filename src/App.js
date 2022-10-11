@@ -8,7 +8,6 @@ function App() {
   const [bookId, setBookId] = useState('');
 
   const getBookIdHandler = (id) => {
-    console.log('Id of document to be edited :', id);
     setBookId(id);
   };
 
